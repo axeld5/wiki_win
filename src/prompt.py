@@ -1,20 +1,19 @@
-def get_crawler_template(page_title:str, link_list:list[str], goal_page_title:str):
-    prompt = f"""<system> You are an AI language model tasked to beat the Wiki Game. 
-    Your goal is, from a wikipedia page, to get the next link to click to go to the next page. </system>
-    
+def get_crawler_template():
+    prompt = """ 
     <instructions>
-    The page you are sitting at is <page> {page_title} </page>
+    The page you are sitting at is <page> {current_page} </page>
     
     Here is a list of the links available. 
-    <link_list> {link_list} </link_list>
+    <link_list> {current_links} </link_list>
     
-    The goal page is <goal_page> {goal_page_title} </goal_page>
-    Select the link that is the most useful to get to the goal page. 
+    The goal page is <goal_page> {end_page} </goal_page>
+    Here is its content <goal_page_content> {end_page_content} </goal_page_content>
+    Select the link that is the most useful to get to the goal page. If you cannot find one that could be related from close to far, output "Random".
     </instructions>
     
     <output_rules>
     You must output two things:
     - Within <reasoning></reasoning> brackets, your reasoning about your link choice.
-    - Within <output></output> brackets, your link choice.
+    - Within <output></output> brackets, your link choice. It should be like "<output>Output</output>".
     """
     return prompt
