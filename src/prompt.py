@@ -17,3 +17,14 @@ def get_crawler_template():
     - Within <output></output> brackets, your link choice. It should be like "<output>Output</output>".
     """
     return prompt
+
+def get_summarize_template():
+    prompt = """<instructions> The page content I want you to summarize is the following: 
+    <page_content> 
+    {page_content} 
+    </page_content>
+    </instructions>
+
+    This summary should not be longer than 10 sentences. It should simply be enough to grasp an understanding of the Wikipedia page.
+    From the page content above, return its summary and only the summary, within <summary> </summary> brackets."""
+    return prompt
