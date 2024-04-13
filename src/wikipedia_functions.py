@@ -23,7 +23,6 @@ def get_page_links(title:str) -> str:
     clickable_links = remove_special_links(uniform_links)
     return clickable_links
 
-
 def check_wikipedia_pages_existence(titles):
     url = "https://en.wikipedia.org/w/api.php"
     results = {}
