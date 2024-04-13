@@ -8,6 +8,9 @@ def get_random_page(random_count:int) -> list[str]:
     titles = [data['query']['random'][i]['title'] for i in range(random_count)]
     return titles
 
+def remove_special_links(links:list[str]) -> list[str]:
+    return [link for link in links if not link.startswith("Category:")]
+
 def get_page_links(title:str) -> str:
     url = f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles={title}&rvslots=*&rvprop=content&formatversion=2"
     response = requests.get(url)
@@ -15,9 +18,11 @@ def get_page_links(title:str) -> str:
     document = data['query']['pages'][0]['revisions'][0]['slots']['main']['content']
     pattern = r'\[\[(.*?)\]\]'
     matches = re.findall(pattern, document)
-    extracted_texts = [match.split('|')[0] for match in matches]
-    clickable_links = list(set(extracted_texts))
+    extracted_links = [match.split('|')[0] for match in matches]
+    uniform_links = list(set(extracted_links))
+    clickable_links = remove_special_links(uniform_links)
     return clickable_links
+
 
 def check_wikipedia_pages_existence(titles):
     url = "https://en.wikipedia.org/w/api.php"
