@@ -9,7 +9,7 @@ def get_random_page(random_count:int) -> list[str]:
     return titles
 
 def remove_special_links(links:list[str]) -> list[str]:
-    return [link for link in links if not link.startswith("Category:")]
+    return [link for link in links if not link.startswith("Category:") and not link.startswith("File:")]
 
 def get_page_links(title:str) -> str:
     url = f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles={title}&rvslots=*&rvprop=content&formatversion=2"

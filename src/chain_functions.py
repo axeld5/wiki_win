@@ -1,9 +1,9 @@
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
-from prompt_functions import get_reasoned_crawler_template, get_summarize_template, get_broad_links_template, get_explain_links_template
+from prompt_functions import get_crawler_template, get_summarize_template, get_broad_links_template, get_explain_links_template
 
 def get_crawler_chain(chat:ChatAnthropic):
-    crawler_system, crawler_template = get_reasoned_crawler_template()
+    crawler_system, crawler_template = get_crawler_template()
     crawler_prompt = ChatPromptTemplate.from_messages([("system", crawler_system), ("human", crawler_template)])
     crawler_chain = crawler_prompt | chat
     return crawler_chain
