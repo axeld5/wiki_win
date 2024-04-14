@@ -1,8 +1,5 @@
 """Functions related to the wikirace solving process"""
-
-import os
-import yaml
-
+from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
 from langchain_anthropic import ChatAnthropic
 
@@ -10,13 +7,6 @@ from agents.answer_functions import answer_broad_links, answer_crawler, answer_e
 from agents.chain_functions import get_crawler_chain, get_summarize_chain, get_explain_links_chain, get_broad_links_chain
 from utils.matching_functions import find_closest_documents
 from utils.wikipedia_functions import get_page_links, get_page_content, check_wikipedia_pages_existence
-
-def load_anthropic_key():
-    """Loads anthropic key and adds it within the environment"""
-    with open('config.yml', 'r') as file:
-        config = yaml.safe_load(file)
-    anthropic_key = config["anthropic_key"]
-    os.environ["ANTHROPIC_API_KEY"] = anthropic_key
 
 def get_valid_links(current_page:str, trajectory:list[str]):
     """
@@ -54,7 +44,7 @@ def full_wikirace(start_page:str, end_page:str, n_iterations:int=10) -> None:
         None
     """
     #Setup models & chains
-    load_anthropic_key()
+    load_dotenv()
     embedding_model = SentenceTransformer("nomic-ai/nomic-embed-text-v1", trust_remote_code=True)
     haiku = ChatAnthropic(temperature=0, model_name="claude-3-haiku-20240307")
     crawler_chain = get_crawler_chain(haiku)
