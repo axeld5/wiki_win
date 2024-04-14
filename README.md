@@ -3,6 +3,7 @@ This project utilizes a Claude-3 Haiku agent system to solve the Wikipedia race 
 
 # Requirements
 To run this project, you need an Anthropic API key and python >= 3.8.
+Use this link to setup your Anthropic API key if you do not have one yet: https://console.anthropic.com/dashboard
 You can install the required Python packages by running the following command:
 
 ```
