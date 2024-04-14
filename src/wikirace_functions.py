@@ -1,11 +1,15 @@
+"""Functions related to the wikirace solving process"""
+
 import os
 import yaml
+
 from sentence_transformers import SentenceTransformer
 from langchain_anthropic import ChatAnthropic
-from wikipedia_functions import get_page_links, get_page_content, check_wikipedia_pages_existence
-from chain_functions import get_crawler_chain, get_summarize_chain, get_explain_links_chain, get_broad_links_chain
-from answer_functions import answer_broad_links, answer_crawler, answer_explain_links, answer_summarize
-from matching_functions import find_closest_documents
+
+from agents.answer_functions import answer_broad_links, answer_crawler, answer_explain_links, answer_summarize
+from agents.chain_functions import get_crawler_chain, get_summarize_chain, get_explain_links_chain, get_broad_links_chain
+from utils.matching_functions import find_closest_documents
+from utils.wikipedia_functions import get_page_links, get_page_content, check_wikipedia_pages_existence
 
 def load_anthropic_key():
     """Loads anthropic key and adds it within the environment"""

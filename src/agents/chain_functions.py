@@ -2,7 +2,7 @@
 
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import ChatPromptTemplate
-from prompt_functions import get_crawler_template, get_summarize_template, get_broad_links_template, get_explain_links_template
+from .prompt_functions import get_crawler_template, get_summarize_template, get_broad_links_template, get_explain_links_template
 
 def get_crawler_chain(chat:ChatAnthropic):
     """

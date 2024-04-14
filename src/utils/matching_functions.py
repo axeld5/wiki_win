@@ -21,6 +21,22 @@ def find_closest_documents(model: SentenceTransformer, current_links:list[str], 
     doc = [f"search_document: {end_page.lower()} & \n Page summary: {end_page_content}"]
     doc_embedding = model.encode(doc)
     link_embeddings = model.encode(wikipedia_pages)
-    closest_embedding_idxs = np.argsort(np.asarray([np.linalg.norm(doc_embedding - link_embedding) for link_embedding in link_embeddings]))
-    closest_links = [current_links[closest_embedding_idx] for closest_embedding_idx in closest_embedding_idxs[:n_returned]]
+    closest_embedding_idxs = find_closest_embeddings(doc_embedding, link_embeddings, n_returned)
+    closest_links = [current_links[closest_embedding_idx] for closest_embedding_idx in closest_embedding_idxs]
     return closest_links
+
+def find_closest_embeddings(doc_embedding:np.ndarray, link_embeddings:np.ndarray, n_returned:int) -> np.ndarray:
+    """
+    From an embedding of a document and of query links, find the n closest embeddings.
+
+    Args:
+        doc_embedding (np.ndarray): embedding of the end page with its summarized content
+        link_embeddings (np.ndarray): embeddings of the links we want to find whether or not they're interesting to click on
+        n_returned (int): number of indices we return
+
+    Returns:
+        chosen_indices (np.ndarray): 1D array of integers of length (n_returned) containing indices of links closest to the document
+    """
+    embedding_differences = np.asarray([np.linalg.norm(doc_embedding - link_embedding) for link_embedding in link_embeddings])
+    chosen_indices = np.argsort(embedding_differences)[:n_returned]
+    return chosen_indices
