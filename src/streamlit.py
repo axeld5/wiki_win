@@ -40,5 +40,6 @@ n_iterations = int(st.text_input("Number of iterations:", value=st.session_state
 
 solve_button = st.button("Launch Claude-3 Solving")
 
+st_text = st.container()
 if solve_button:
-    full_wikirace(start_page_text, end_page_text, n_iterations, on_streamlit=True)
+    full_wikirace(start_page_text, end_page_text, n_iterations, on_streamlit=True, st_text=st_text)

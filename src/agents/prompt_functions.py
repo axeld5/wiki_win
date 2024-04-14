@@ -109,5 +109,6 @@ def get_explain_links_template():
 
     In order to help, here is a summary of the page's content <page_summary> {end_page_content} </page_summary>
     
-    Output an explanation for each of those links on why they could be helpful at winning the Wikipedia Race."""
+    <output_rules> Output an explanation for each of those links on why they could be helpful at winning the Wikipedia Race.
+    Output AT MOST 3 sentences per link. Do not output anything else but the explanations. </output_rules>"""
     return system, prompt
