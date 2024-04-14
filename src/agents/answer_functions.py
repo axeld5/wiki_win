@@ -69,7 +69,7 @@ def answer_explain_links(explain_links_chain, current_links:list[str], end_page:
     reasonings = explain_links.content
     return reasonings
 
-def answer_crawler(crawler_chain, current_page:str, current_links:list[str], reasonings:str, end_page:str, end_page_content:str):
+def answer_crawler(crawler_chain, current_page:str, current_links:list[str], reasonings:str, end_page:str, end_page_content:str) -> tuple[str]:
     """
     Gets the answer from the crawler agent on which link would be the best to choose and postprocesses it.
     
@@ -83,6 +83,7 @@ def answer_crawler(crawler_chain, current_page:str, current_links:list[str], rea
         
     Returns:
         new_page (str): chosen page to go to
+        crawler_reasoning (str): crawler textual output
     """
     crawler_text = crawler_chain.invoke(
         {
@@ -93,9 +94,8 @@ def answer_crawler(crawler_chain, current_page:str, current_links:list[str], rea
             "end_page_content": end_page_content
         }
     )
-    model_output = crawler_text.content
-    print(model_output)
+    crawler_reasoning = crawler_text.content
     pattern = r'<output>(.*?)</output>'
-    matches = re.findall(pattern, model_output)
-    new_page = matches[0]
-    return new_page
+    matches = re.findall(pattern, crawler_reasoning)
+    new_page = matches[0].strip()
+    return new_page, crawler_reasoning
