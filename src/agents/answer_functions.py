@@ -20,7 +20,8 @@ def answer_summarize(summarize_chain, end_page_full_content:str) -> str:
     )
     model_output = end_summary.content
     pattern = r'<summary>(.*?)</summary>'
-    matches = re.findall(pattern, model_output)
+    matches = re.findall(pattern, model_output, re.DOTALL)
+    print(matches)
     end_page_content = matches[0]
     return end_page_content
 
@@ -44,7 +45,7 @@ def answer_broad_links(broad_links_chain, current_links:list[str], end_page:str,
     })
     model_output = broad_links.content
     pattern = r'<output>(.*?)</output>'
-    matches = re.findall(pattern, model_output)
+    matches = re.findall(pattern, model_output, re.DOTALL)
     broad_links = [link.strip() for link in matches[0].split(",")]
     return broad_links
 
@@ -96,6 +97,6 @@ def answer_crawler(crawler_chain, current_page:str, current_links:list[str], rea
     )
     crawler_reasoning = crawler_text.content
     pattern = r'<output>(.*?)</output>'
-    matches = re.findall(pattern, crawler_reasoning)
+    matches = re.findall(pattern, crawler_reasoning, re.DOTALL)
     new_page = matches[0].strip()
     return new_page, crawler_reasoning
