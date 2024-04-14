@@ -43,6 +43,9 @@ if hard_mode_button:
 start_page_text = st.text_input("Start Page:", value=st.session_state.start_page, on_change=prevent_solving)
 end_page_text = st.text_input("End Page:", value=st.session_state.end_page, on_change=prevent_solving)
 n_iterations = int(st.text_input("Number of iterations:", value=st.session_state.n_iterations))
+option = st.selectbox(
+    "Model choice",
+    ("haiku", "sonnet", "opus"))
 check_button = st.button("Check if Pages are Valid")
 
 if check_button:
@@ -58,4 +61,4 @@ if check_button:
 solve_button = st.button("Launch Claude-3 Solving", disabled=not st.session_state.solve_enabled)
 st_text = st.container()
 if solve_button:
-    full_wikirace(start_page_text, end_page_text, n_iterations, on_streamlit=True, st_text=st_text)
+    full_wikirace(start_page_text, end_page_text, n_iterations, model_used=option, on_streamlit=True, st_text=st_text)

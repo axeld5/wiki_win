@@ -27,7 +27,7 @@ def get_valid_links(current_page:str, trajectory:list[str]):
     valid_links = [link for link in start_links if checked_links[link] and link not in trajectory]
     return valid_links
 
-def full_wikirace(start_page:str, end_page:str, n_iterations:int=10, on_streamlit:bool=False, st_text:Optional[classmethod]=None) -> None:
+def full_wikirace(start_page:str, end_page:str, n_iterations:int=10, model_used:str="haiku", on_streamlit:bool=False, st_text:Optional[classmethod]=None) -> None:
     """
     Performs wikipedia race game given a start_page and an end_page.
 
@@ -52,11 +52,16 @@ def full_wikirace(start_page:str, end_page:str, n_iterations:int=10, on_streamli
             st.markdown("Setting up...")
     load_dotenv()
     embedding_model = SentenceTransformer("nomic-ai/nomic-embed-text-v1", trust_remote_code=True)
-    haiku = ChatAnthropic(temperature=0, model_name="claude-3-haiku-20240307")
-    crawler_chain = get_crawler_chain(haiku)
-    summarize_chain = get_summarize_chain(haiku)
-    explain_links_chain = get_explain_links_chain(haiku)
-    broad_links_chain = get_broad_links_chain(haiku)
+    if model_used == "haiku":
+        llm = ChatAnthropic(temperature=0, model_name="claude-3-haiku-20240307")
+    elif model_used == "sonnet":
+        llm = ChatAnthropic(temperature=0, model_name="claude-3-sonnet-20240229")
+    elif model_used == "opus":
+        llm = ChatAnthropic(temperature=0, model_name="claude-3-opus-20240229")
+    crawler_chain = get_crawler_chain(llm)
+    summarize_chain = get_summarize_chain(llm)
+    explain_links_chain = get_explain_links_chain(llm)
+    broad_links_chain = get_broad_links_chain(llm)
 
     #Summarization of end page content
     if on_streamlit:
