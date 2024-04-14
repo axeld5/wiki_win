@@ -1,2 +1,7 @@
-einops
-nomic
+einops==0.7.0
+langchain-anthropic==0.1.8
+langchain-core==0.1.42
+nomic==3.0.23
+numpy==1.26.4
+requests==2.31.0
+sentence-transformers==2.6.1

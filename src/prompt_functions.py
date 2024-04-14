@@ -1,4 +1,15 @@
-def get_crawler_template():
+"""Functions related to getting both system and human prompts"""
+
+def get_crawler_template() -> tuple[str]:
+    """
+    Gets system and human prompts for the crawling agent.
+    
+    Args: None
+    
+    Returns:
+        system (str): system prompt for the crawling agent.
+        prompt (str): human prompt for the crawling agent.
+    """
     system = (
     """You are an AI language model tasked to beat the Wiki Game. 
     Your goal is, from a wikipedia page, to get the next link to click to go to the next page.
@@ -26,14 +37,23 @@ def get_crawler_template():
     return system, prompt
 
 def get_summarize_template():
+    """
+    Gets system and human prompts for the summarizing agent.
+    
+    Args: None
+    
+    Returns:
+        system (str): system prompt for the summarizing agent.
+        prompt (str): human prompt for the summarizing agent.
+    """
     system = (
     """You are an AI language model tasked to summarize the Wikipedia content of the end page of a Wiki Race Game.
     Through this summary, you are supposed to help a crawler agent to get to the end page."""
     )
     prompt = """<instructions> The end page's content that I want you to summarize is the following: 
-    <end_page> 
-    {end_page} 
-    </end_page>
+    <end_page_full_content> 
+    {end_page_full_content} 
+    </end_page_full_content>
     </instructions>
 
     This summary should not be longer than 10 sentences. It should simply be enough to grasp an understanding of the Wikipedia page.
@@ -42,6 +62,15 @@ def get_summarize_template():
     return system, prompt
 
 def get_broad_links_template():
+    """
+    Gets system and human prompts for the agent tasked to get broad links from the links available.
+    
+    Args: None
+    
+    Returns:
+        system (str): system prompt for the agent tasked to get broad links from the links available.
+        prompt (str): human prompt for the agent tasked to get broad links from the links available.
+    """
     system = (
     """You are an AI language model part of a system tasked to beat the Wiki Game. 
     In order to beat the game, it can be helpful to get broad links that can give a lot of information to move from.
@@ -55,12 +84,21 @@ def get_broad_links_template():
     
     In order to help, here is a summary of the page's content <page_summary> {end_page_content} </page_summary>
     
-    Now, output the three links. Those three links should be output in the following format:
+    <output_rules> Now, output the three links. Those three links should be output in the following format:
     <output> link_1, link_2, link_3 </output>. 
-    Output them in this format and this format alone."""
+    Output them in this format and this format alone. You MUST answer links from the link_list. Any other link is unreceivable. </output_rules>"""
     return system, prompt
 
 def get_explain_links_template():
+    """
+    Gets system and human prompts for the agent tasked tasked to explain the links' usefulness related to the objective.
+    
+    Args: None
+    
+    Returns:
+        system (str): system prompt for the agent tasked tasked to explain the links' usefulness related to the objective.
+        prompt (str): human prompt for the agent tasked tasked to explain the links' usefulness related to the objective.
+    """
     system = (
     """You are an AI language model part of a system tasked to beat the Wiki Game. 
     In order to beat the game, it can be helpful to get explanations on the most relevant links chosen to beat the game.

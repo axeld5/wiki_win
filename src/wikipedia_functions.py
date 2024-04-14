@@ -1,7 +1,17 @@
-import requests
+"""Gets functions related to wikipedia API"""
 import re
+import requests
 
 def get_random_page(random_count:int) -> list[str]:
+    """
+    Gets a random amount of title pages from Wikipedia.
+    
+    Args:
+        random_count (int): count of random pages that need to be fetched
+    
+    Returns:
+        titles (list[str]): titles of pages to be fetched
+    """
     url = f"https://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnnamespace=0&rnlimit={random_count}"
     response = requests.get(url)
     data = response.json()
@@ -9,9 +19,27 @@ def get_random_page(random_count:int) -> list[str]:
     return titles
 
 def remove_special_links(links:list[str]) -> list[str]:
+    """
+    Performs removal of identified special, unusable links.
+
+    Args:
+        links (list[str]): list of links
+
+    Returns:
+        list[str]: filtered list of links
+    """
     return [link for link in links if not link.startswith("Category:") and not link.startswith("File:")]
 
-def get_page_links(title:str) -> str:
+def get_page_links(title:str) -> list[str]:
+    """
+    From page title, queries wikipedia API to get a list of unique links found on the page.
+
+    Args:
+        title (str): title of the studied page
+
+    Returns:
+        clickable_links (list[str]): list of clickable links found from the page
+    """
     url = f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles={title}&rvslots=*&rvprop=content&formatversion=2"
     response = requests.get(url)
     data = response.json()
@@ -23,7 +51,16 @@ def get_page_links(title:str) -> str:
     clickable_links = remove_special_links(uniform_links)
     return clickable_links
 
-def check_wikipedia_pages_existence(titles):
+def check_wikipedia_pages_existence(titles:list[str]) -> dict[str, bool]:
+    """
+    Uses wikipedia API to check if there if the wikipedia pages assigned to a list of titles are empty or not.
+
+    Args:
+        titles (list[str]): list of titles that provide followable links
+    
+    Returns:
+        results (dict[str, bool]): dict that assigns to each title a bool saying if the wikipedia page is missing or not.
+    """
     url = "https://en.wikipedia.org/w/api.php"
     results = {}
     slice_size = 50
