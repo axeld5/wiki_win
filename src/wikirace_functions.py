@@ -1,5 +1,5 @@
 """Functions related to the wikirace solving process"""
-from typing import Optional
+from typing import Optional, List
 import streamlit as st
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
@@ -10,7 +10,7 @@ from agents.chain_functions import get_crawler_chain, get_summarize_chain, get_e
 from utils.matching_functions import find_closest_documents
 from utils.wikipedia_functions import get_page_links, get_page_content, check_wikipedia_pages_existence
 
-def get_valid_links(current_page:str, trajectory:list[str]):
+def get_valid_links(current_page:str, trajectory:List[str]) -> List[str]:
     """
     Gets links from a page which are valid given a page title and a trajectory.
     Trajectory is here to avoid repetition of links, as per wiki game rules.

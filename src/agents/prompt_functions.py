@@ -1,6 +1,7 @@
 """Functions related to getting both system and human prompts"""
+from typing import Tuple
 
-def get_crawler_template() -> tuple[str]:
+def get_crawler_template() -> Tuple[str]:
     """
     Gets system and human prompts for the crawling agent.
     
@@ -36,7 +37,7 @@ def get_crawler_template() -> tuple[str]:
     """
     return system, prompt
 
-def get_summarize_template():
+def get_summarize_template() -> Tuple[str]:
     """
     Gets system and human prompts for the summarizing agent.
     
@@ -61,7 +62,7 @@ def get_summarize_template():
     <summary>summary</summary>"""
     return system, prompt
 
-def get_broad_links_template():
+def get_broad_links_template() -> Tuple[str]:
     """
     Gets system and human prompts for the agent tasked to get broad links from the links available.
     
@@ -89,7 +90,7 @@ def get_broad_links_template():
     Output them in this format and this format alone. You MUST answer links from the link_list. Any other link is unreceivable. </output_rules>"""
     return system, prompt
 
-def get_explain_links_template():
+def get_explain_links_template() -> Tuple[str]:
     """
     Gets system and human prompts for the agent tasked tasked to explain the links' usefulness related to the objective.
     

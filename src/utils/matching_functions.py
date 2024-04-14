@@ -1,9 +1,10 @@
 """Functions related to matching links with the end document"""
 
 import numpy as np
+from typing import List
 from sentence_transformers import SentenceTransformer
 
-def find_closest_documents(model: SentenceTransformer, current_links:list[str], end_page:str, end_page_content:str, n_returned:int=5) -> list[str]:
+def find_closest_documents(model: SentenceTransformer, current_links:List[str], end_page:str, end_page_content:str, n_returned:int=5) -> List[str]:
     """
     Uses open source embedding model to evaluate closest links to wikipedia target page.
     

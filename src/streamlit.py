@@ -4,7 +4,7 @@ import streamlit as st
 from utils.wikipedia_functions import get_random_page, check_wikipedia_pages_existence
 from wikirace_functions import full_wikirace
 
-def generate_pages(mode:str):
+def generate_pages(mode:str) -> None:
     if mode == "easy":
         start_page = get_random_page(1)[0]
         st.session_state.start_page = start_page
@@ -14,10 +14,10 @@ def generate_pages(mode:str):
         st.session_state.start_page = start_page
         st.session_state.end_page = end_page
 
-def prevent_solving():
+def prevent_solving() -> None:
     st.session_state.solve_enabled = False
 
-def approve_solving():
+def approve_solving() -> None:
     st.session_state.solve_enabled = True
 
 

@@ -1,8 +1,9 @@
 """Gets functions related to wikipedia API"""
 import re
 import requests
+from typing import List, Dict
 
-def get_random_page(random_count:int) -> list[str]:
+def get_random_page(random_count:int) -> List[str]:
     """
     Gets a random amount of title pages from Wikipedia.
     
@@ -18,7 +19,7 @@ def get_random_page(random_count:int) -> list[str]:
     titles = [data['query']['random'][i]['title'] for i in range(random_count)]
     return titles
 
-def remove_special_links(links:list[str]) -> list[str]:
+def remove_special_links(links:List[str]) -> List[str]:
     """
     Performs removal of identified special, unusable links.
 
@@ -30,7 +31,7 @@ def remove_special_links(links:list[str]) -> list[str]:
     """
     return [link for link in links if not link.startswith("Category:") and not link.startswith("File:")]
 
-def get_page_links(title:str) -> list[str]:
+def get_page_links(title:str) -> List[str]:
     """
     From page title, queries wikipedia API to get a list of unique links found on the page.
 
@@ -51,7 +52,7 @@ def get_page_links(title:str) -> list[str]:
     clickable_links = remove_special_links(uniform_links)
     return clickable_links
 
-def check_wikipedia_pages_existence(titles:list[str]) -> dict[str, bool]:
+def check_wikipedia_pages_existence(titles:List[str]) -> Dict[str, bool]:
     """
     Uses wikipedia API to check if there if the wikipedia pages assigned to a list of titles are empty or not.
 
@@ -91,7 +92,16 @@ def check_wikipedia_pages_existence(titles:list[str]) -> dict[str, bool]:
                 results[title] = False
     return results
 
-def get_page_content(title:str):
+def get_page_content(title:str) -> str:
+    """
+    Gets full wikipedia text content of a page from its title.
+    
+    Args:
+        title (str): title of the page to be looked at
+        
+    Returns:
+        page_content (str): full text content of the page
+    """
     url = f"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&titles={title}&explaintext=1"
     response = requests.get(url)
     data = response.json()
