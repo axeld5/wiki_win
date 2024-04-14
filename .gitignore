@@ -1,3 +1,4 @@
 *.yml
 .env
 __pycache__
+labo
