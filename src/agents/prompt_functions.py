@@ -32,7 +32,7 @@ def get_crawler_template() -> Tuple[str]:
     <output_rules>
     You must output two things:
     - Within <reasoning></reasoning> brackets, your reasoning about your link choice.
-    - Within <output></output> brackets, your link choice. It should be like "<output>Output</output>".
+    - Within <output></output> brackets, your link choice. For instance: <output>Link</output>.
     You MUST answer a link from the link list. Any other link is unreceivable. </output_rules>
     """
     return system, prompt

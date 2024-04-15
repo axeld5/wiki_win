@@ -22,7 +22,6 @@ def answer_summarize(summarize_chain, end_page_full_content:str) -> str:
     model_output = end_summary.content
     pattern = r'<summary>(.*?)</summary>'
     matches = re.findall(pattern, model_output, re.DOTALL)
-    print(matches)
     end_page_content = matches[0]
     return end_page_content
 

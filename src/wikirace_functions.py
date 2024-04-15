@@ -98,7 +98,7 @@ def full_wikirace(start_page:str, end_page:str, n_iterations:int=10, model_used:
             else:
                 print(f"{end_page} in {current_page}'s links \nPage reached in {i+1} iterations!")
             break
-        elif i == n_iterations:
+        elif i == n_iterations - 1:
             if on_streamlit:
                 with st_text:
                     st.markdown("---------NOT FOUND----------")
