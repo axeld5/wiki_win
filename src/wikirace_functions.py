@@ -86,7 +86,7 @@ def full_wikirace(start_page:str, end_page:str, n_iterations:int=10, model_used:
         trajectory.append(current_page)
         if on_streamlit:
             with st_text:
-                st.markdown(f"Search iteration: {i}")
+                st.markdown(f"Search iteration: {i+1}")
                 st.markdown(f"Current Page: {current_page}")
                 st.markdown(f"Current Trajectory: {' > '.join(trajectory)}")
         if end_page in current_links:
@@ -98,6 +98,13 @@ def full_wikirace(start_page:str, end_page:str, n_iterations:int=10, model_used:
             else:
                 print(f"{end_page} in {current_page}'s links \nPage reached in {i+1} iterations!")
             break
+        elif i == n_iterations:
+            if on_streamlit:
+                with st_text:
+                    st.markdown("---------NOT FOUND----------")
+                    st.markdown(f"'{end_page}' page could not be reached in {i+1} iterations")
+            else:
+                print(f"'{end_page}' page could not be reached in {i+1} iterations")
         else:
             closest_links = find_closest_documents(embedding_model, current_links, end_page, end_page_content)
             broad_links = answer_broad_links(broad_links_chain, current_links, end_page, end_page_content)
