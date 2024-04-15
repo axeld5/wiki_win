@@ -1,5 +1,5 @@
 # Wikipedia Race Game with Claude-3 Haiku Agent System
-This project utilizes a Claude-3 Haiku agent system to solve the Wikipedia race game. The Wikipedia race is a game where players start from a random Wikipedia page and navigate through the links to reach a predetermined target page. The objective is to reach the target page in the fewest number of clicks.
+This project utilizes a Claude-3 Haiku agent system to solve the Wikipedia race game. The Wikipedia race is a game where players start from a random Wikipedia page and navigate through the links to reach a predetermined target page. The objective is to reach the target page using the fewest number of links.
 
 # Requirements
 To run this project, you need an Anthropic API key and python >= 3.8.

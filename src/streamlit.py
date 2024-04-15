@@ -21,8 +21,8 @@ def approve_solving() -> None:
     st.session_state.solve_enabled = True
 
 
-st.title("Search Agent")
-
+st.title("WikiWin Solving System")
+st.write("This project utilizes a Claude-3 Haiku agent system to solve the Wikipedia race game. The Wikipedia race is a game where players start from a random Wikipedia page and navigate through the links to reach a predetermined target page. The objective is to reach the target page using the fewest number of links.")
 if "start_page" not in st.session_state:
     st.session_state.start_page = ""
 if "end_page" not in st.session_state:
